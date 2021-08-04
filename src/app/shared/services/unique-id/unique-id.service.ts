@@ -5,7 +5,11 @@ import * as uuid from 'uuid';
   providedIn: 'root'
 })
 export class UniqueIdService {
-
+  /**  */
+  private numberOfGeneratedIds=0;
+  /** */
+  private validId = /^[A-Za-z]+[\w\-\:\.]*$/;
+  
   constructor() { }
   
   /**
@@ -20,7 +24,17 @@ export class UniqueIdService {
    * @returns 
    */
   public generateUniqueIdWithPrefix(prefix: string): string {
-    const uniqueId = this.generateUniqueId();
-    return `${prefix}-${uniqueId}`;
+    if(prefix && this.validId.test(prefix)) {
+      const uniqueId = this.generateUniqueId();
+      this.numberOfGeneratedIds++;
+      return `${prefix}-${uniqueId}`;
+    } else throw new Error('Prefix param is required');
+  }
+
+  /**
+   * @returns number
+   */
+  public getNumberOfGeneratedUniqueIds(): number {
+    return this.numberOfGeneratedIds;
   }
 }
