@@ -25,7 +25,7 @@ export class LikeWidgetComponent implements OnInit {
    * Recebe um id de unicidade
    * (ou gera automaticamente se for nulo)
    */
-  @Input() public id = null;
+  @Input() public id: string = null;
 
   /**
    * Ícones de fontes
